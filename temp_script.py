@@ -5,10 +5,7 @@ from telegram.error import Unauthorized
 import serial
 
 
-ser = serial.Serial('COM7', 9600)
-
-
-updater = Updater(token='199517321:AAGX0Ylmxl5ainQ51QWQIGPVpwWasC19wYk')
+updater = Updater(token='199517321:AAEBVPSIGu7kt4aYMe_hi_3i2YRfniZAZME')
 
 dispatcher = updater.dispatcher
 
@@ -21,20 +18,23 @@ dispatcher.addTelegramCommandHandler('start', start)
 
 
 def unknown(bot, update):
-        bot.sendMessage(chat_id=update.message.chat_id, text="No such command")
+    bot.sendMessage(chat_id=update.message.chat_id, text="No such command")
 
 
 dispatcher.addUnknownTelegramCommandHandler(unknown)
 
+
 def yes(bot, update, args):
-    temp = str(ser.read())
-    bot.sendMessage(chat_id=update.message.chat_id, text=temp)
+    temp=0
+    ct=0
+    ser = serial.Serial('COM7', 9600)
+    while ct!=5:
+        temp=(ser.readline())
+        print temp
+        ct+=1
+    bot.sendMessage(chat_id=update.message.chat_id, text=temp+" Centigrade")
 
 
 dispatcher.addTelegramCommandHandler('yes', yes)
 
-
-
-
 updater.start_polling()
-
