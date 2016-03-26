@@ -1,7 +1,6 @@
 __name__ = "vutsuak"
 
 from telegram import Updater
-from telegram.error import Unauthorized
 import serial
 
 
